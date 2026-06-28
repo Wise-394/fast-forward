@@ -1,4 +1,4 @@
-import Screen from "@/components/Screen";
+import { Screen } from "@/components/Screen";
 import { AppInput } from "@/components/ui/appInput";
 import { AppText } from "@/components/ui/appText";
 import { WideButton } from "@/components/ui/wideButton";
