@@ -6,8 +6,6 @@ interface Props {
 
 export default function Screen({ children }: Props) {
   return (
-    <SafeAreaView className="flex-1 bg-background p-4 pb-12 ">
-      {children}
-    </SafeAreaView>
+    <SafeAreaView className="flex-1 bg-background p-4">{children}</SafeAreaView>
   );
 }
