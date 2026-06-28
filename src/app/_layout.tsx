@@ -1,11 +1,10 @@
 import { getUsername } from "@/services/storage/user/userService";
 import { router, Stack } from "expo-router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import "../../global.css";
-export default function RootLayout() {
-  const [isReady, setIsReady] = useState(false);
 
+export default function RootLayout() {
   useEffect(() => {
     const username = getUsername();
     if (!username) {
@@ -13,10 +12,7 @@ export default function RootLayout() {
     } else {
       router.replace("/");
     }
-    setIsReady(true);
   }, []);
-
-  if (!isReady) return null;
 
   return (
     <SafeAreaProvider>

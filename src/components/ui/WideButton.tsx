@@ -1,5 +1,5 @@
 import { Pressable } from "react-native";
-import { AppText } from "./AppText";
+import { AppText } from "./appText";
 interface Props {
   label: string;
   icon?: React.ReactNode;
