@@ -1,10 +1,12 @@
 import { CameraLoading } from "@/components/features/cameraLoading";
+import { ChangeCamera } from "@/components/features/changeCamera";
 import { RecordButton } from "@/components/features/recordButton";
+import { RecordDuration } from "@/components/features/recordDuration";
 import { Screen } from "@/components/Screen";
 import { AppText } from "@/components/ui/appText";
 import { BackButton } from "@/components/ui/backButton";
 import { WideButton } from "@/components/ui/wideButton";
-import { useCameraPermissions } from "expo-camera";
+import { CameraView, useCameraPermissions } from "expo-camera";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -37,26 +39,31 @@ export default function RecordingPage() {
   return (
     <SafeAreaView className="flex-1 bg-background">
       {/* HEADER */}
-      <View className="flex h-[10%] flex-row items-start justify-between pt-3">
-        <BackButton />
-        <AppText className="flex-1 text-center text-2xl font-bold">
-          Record
-        </AppText>
-        <View className="w-10" />
+      <View className="relative flex h-[8%] flex-row items-center justify-center pt-3">
+        <View className="absolute left-2">
+          <BackButton />
+        </View>
+        <AppText className="text-center text-2xl font-bold">Record</AppText>
+        <View className="absolute right-4">
+          <RecordDuration />
+        </View>
       </View>
 
       <View className="relative flex-1">
-        {/* <CameraView
+        <CameraView
           style={{ flex: 1, width: "100%" }}
-          onCameraReady={() => {}}
-        /> */}
-        {/* overlay when camera is not ready*/}
-        {!isCamReady && <CameraLoading />}
+          onCameraReady={() => setCamReady(true)}
+          mode="video"
+        />
+        <CameraLoading visible={!isCamReady} />
       </View>
 
       {/* FOOTER */}
-      <View className="mt-5 h-[15%] items-center">
+      <View className="relative mt-5 h-[15%] items-center justify-center p-2">
         <RecordButton />
+        <View className="absolute right-[15%]">
+          <ChangeCamera />
+        </View>
       </View>
     </SafeAreaView>
   );

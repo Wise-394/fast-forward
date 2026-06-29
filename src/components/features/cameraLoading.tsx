@@ -1,10 +1,27 @@
 import { AppText } from "@/components/ui/appText";
-import { View } from "react-native";
+import { useEffect, useRef } from "react";
+import { Animated } from "react-native";
 
-export function CameraLoading() {
+export function CameraLoading({ visible }: { visible: boolean }) {
+  const opacity = useRef(new Animated.Value(1)).current;
+
+  useEffect(() => {
+    if (!visible) {
+      Animated.timing(opacity, {
+        toValue: 0,
+        duration: 1000,
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [visible]);
+
   return (
-    <View className="inset-0 flex-1 justify-center bg-black">
-      <AppText className="text-center">Loading Camera...</AppText>
-    </View>
+    <Animated.View
+      style={{ opacity }}
+      className="absolute inset-0 items-center justify-center bg-background"
+      pointerEvents={visible ? "auto" : "none"}
+    >
+      <AppText>Loading Camera...</AppText>
+    </Animated.View>
   );
 }
