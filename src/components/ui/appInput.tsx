@@ -4,12 +4,18 @@ interface Props {
   placeholder: string;
   value: string;
   onChange: (text: string) => void;
+  textAlign?: "center" | "left" | "right";
 }
 
-export function AppInput({ placeholder, value, onChange }: Props) {
+export function AppInput({
+  placeholder,
+  value,
+  onChange,
+  textAlign = "center",
+}: Props) {
   return (
     <TextInput
-      textAlign="center"
+      textAlign={textAlign}
       value={value}
       onChangeText={onChange}
       placeholder={placeholder ?? ""}
