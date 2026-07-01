@@ -1,4 +1,3 @@
-// app/recording.tsx (or wherever RecordingPage lives)
 import { CameraLoading } from "@/components/features/cameraLoading";
 import { CameraPermissionsGate } from "@/components/features/cameraPermissionsGate";
 import { ChangeCamera } from "@/components/features/changeCamera";
@@ -6,16 +5,24 @@ import { RecordButton } from "@/components/features/recordButton";
 import { RecordDuration } from "@/components/features/recordDuration";
 import { AppText } from "@/components/ui/appText";
 import { BackButton } from "@/components/ui/backButton";
+import { useRecordStore } from "@/store/useRecordStore";
 import { CameraView } from "expo-camera";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function RecordingPage() {
   const [isCamReady, setCamReady] = useState(false);
-  const cameraRef = useRef<CameraView>(null);
+  const cameraRef = useRef<CameraView>(null!);
+  const deleteRecordedVideo = useRecordStore(
+    (state) => state.deleteRecordedVideo,
+  );
 
-  // TODO zustand
+  useEffect(() => {
+    return () => {
+      deleteRecordedVideo();
+    };
+  }, []);
 
   return (
     <CameraPermissionsGate>
@@ -43,12 +50,17 @@ export default function RecordingPage() {
 
         {/* FOOTER */}
         <View className="relative mt-5 h-[15%] items-center justify-center p-2">
-          <RecordButton />
-          <View className="absolute right-[15%]">
-            <ChangeCamera />
-          </View>
+          {isCamReady && (
+            <>
+              <RecordButton camera={cameraRef} />
+              <View className="absolute right-[15%]">
+                <ChangeCamera />
+              </View>
+            </>
+          )}
         </View>
       </SafeAreaView>
     </CameraPermissionsGate>
   );
 }
+// TODO CANT RECORD WHEN STILL LOADING

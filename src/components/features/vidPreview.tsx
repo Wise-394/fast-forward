@@ -1,19 +1,24 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
-import { Dimensions, View } from "react-native";
+import { useRecordStore } from "@/store/useRecordStore";
+import { useVideoPlayer, VideoView } from "expo-video";
+import { View } from "react-native";
+import { AppText } from "../ui/appText";
+
 export function VidPreview() {
-  return (
-    <View className="relative h-[30%] w-full items-center justify-center rounded-lg bg-text-primary">
-      <PlayFunction />
-    </View>
-  );
+  const recordedVideo = useRecordStore((state) => state.recordedVideo);
+
+  if (!recordedVideo) return <AppText> Invalid recorded video</AppText>;
+  return <VidPlayer uri={recordedVideo.uri} />;
 }
 
-function PlayFunction() {
-  const { width } = Dimensions.get("window");
-  const iconSize = width * 0.22;
+function VidPlayer({ uri }: { uri: string }) {
+  const player = useVideoPlayer(uri);
   return (
-    <View className="items-center justify-center p-2">
-      <Ionicons name="play-circle-outline" size={iconSize} color={"#3a5a8a"} />
+    <View className="relative h-[30%] w-full items-center justify-center rounded-lg bg-text-primary">
+      <VideoView
+        player={player}
+        nativeControls
+        style={{ width: "100%", height: "100%", borderRadius: 10 }}
+      />
     </View>
   );
 }

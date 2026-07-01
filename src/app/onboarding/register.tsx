@@ -34,4 +34,3 @@ export default function Register() {
 }
 
 // TODO GESTURE
-//TODO HOME
