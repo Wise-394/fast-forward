@@ -7,12 +7,15 @@ import { RecordDuration } from "@/components/features/recordDuration";
 import { AppText } from "@/components/ui/appText";
 import { BackButton } from "@/components/ui/backButton";
 import { CameraView } from "expo-camera";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function RecordingPage() {
   const [isCamReady, setCamReady] = useState(false);
+  const cameraRef = useRef<CameraView>(null);
+
+  // TODO zustand
 
   return (
     <CameraPermissionsGate>
