@@ -33,6 +33,7 @@ export default function RecordingPage() {
 
         <View className="relative flex-1">
           <CameraView
+            ref={cameraRef}
             style={{ flex: 1, width: "100%" }}
             onCameraReady={() => setCamReady(true)}
             mode="video"
