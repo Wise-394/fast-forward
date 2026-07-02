@@ -7,22 +7,14 @@ import { AppText } from "@/components/ui/appText";
 import { BackButton } from "@/components/ui/backButton";
 import { useRecordStore } from "@/store/useRecordStore";
 import { CameraView } from "expo-camera";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function RecordingPage() {
   const [isCamReady, setCamReady] = useState(false);
   const cameraRef = useRef<CameraView>(null!);
-
-  useEffect(() => {
-    return () => {
-      if (useRecordStore.getState().isRecording) {
-        cameraRef.current?.stopRecording();
-      }
-      useRecordStore.getState().cleanUpStore();
-    };
-  }, []);
+  const facing = useRecordStore((state) => state.facing);
 
   return (
     <CameraPermissionsGate>
@@ -44,6 +36,7 @@ export default function RecordingPage() {
             style={{ flex: 1, width: "100%" }}
             onCameraReady={() => setCamReady(true)}
             mode="video"
+            facing={facing}
           />
           <CameraLoading visible={!isCamReady} />
         </View>

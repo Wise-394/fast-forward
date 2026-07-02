@@ -17,7 +17,7 @@ function VidPlayer({ uri }: { uri: string }) {
       <VideoView
         player={player}
         nativeControls
-        style={{ width: "100%", height: "100%", borderRadius: 10 }}
+        style={{ width: "100%", height: "100%", borderRadius: 8 }}
       />
     </View>
   );
