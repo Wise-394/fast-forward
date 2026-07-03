@@ -1,20 +1,24 @@
+import { CapsuleItem } from "@/components/features/capsuleItem";
 import { Screen } from "@/components/Screen";
 import { AppText } from "@/components/ui/appText";
-import { selectAllVideos } from "@/services/storage/video/videoQueries";
+import { selectAllMetadatas } from "@/services/storage/video/metadataQueries";
 import { VideoMetadataType } from "@/types/types";
-import { useEffect, useState } from "react";
-import { FlatList } from "react-native";
+import { useFocusEffect } from "expo-router";
+import { useCallback, useState } from "react";
+import { FlatList, View } from "react-native";
 
 export default function Timeline() {
   const [data, setData] = useState<VideoMetadataType[]>([]);
 
-  useEffect(() => {
-    const loadData = async () => {
-      const metadata = await selectAllVideos();
-      setData(metadata);
-    };
-    loadData();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      const loadData = async () => {
+        const metadata = await selectAllMetadatas();
+        setData(metadata);
+      };
+      loadData();
+    }, []),
+  );
 
   return (
     <Screen>
@@ -22,8 +26,13 @@ export default function Timeline() {
       <FlatList
         data={data}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => <AppText> {item.title}</AppText>}
-        ListEmptyComponent={<AppText>No time capsules yet </AppText>}
+        renderItem={({ item }) => <CapsuleItem metadata={item} />}
+        contentContainerStyle={{ flexGrow: 1 }}
+        ListEmptyComponent={
+          <View className="flex-1 items-center justify-center">
+            <AppText className="text-center">No time capsules yet</AppText>
+          </View>
+        }
       />
     </Screen>
   );

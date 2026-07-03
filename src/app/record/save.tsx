@@ -6,8 +6,8 @@ import { AppText } from "@/components/ui/appText";
 import { BackButton } from "@/components/ui/backButton";
 import { AppMultiLine } from "@/components/ui/multiLineInput";
 import { WideButton } from "@/components/ui/wideButton";
+import { insertMetadata } from "@/services/storage/video/metadataQueries";
 import { saveVideo } from "@/services/storage/video/saveVideo";
-import { insertVideo } from "@/services/storage/video/videoQueries";
 import { useRecordStore } from "@/store/useRecordStore";
 import { VideoMetadataType } from "@/types/types";
 import { router } from "expo-router";
@@ -44,7 +44,7 @@ export default function SaveRecording() {
       filepath: filePath,
       unlockDate: date.toISOString(),
     };
-    insertVideo(metadata);
+    insertMetadata(metadata);
   };
 
   const handleSave = () => {

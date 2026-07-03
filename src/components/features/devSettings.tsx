@@ -1,9 +1,9 @@
 import { setUsername } from "@/services/storage/user/userService";
-import { deleteVideoFile } from "@/services/storage/video/saveVideo";
 import {
-  deleteAllVideos,
-  selectAllVideos,
-} from "@/services/storage/video/videoQueries";
+  deleteAllMetadatas,
+  selectAllMetadatas,
+} from "@/services/storage/video/metadataQueries";
+import { deleteVideoFile } from "@/services/storage/video/saveVideo";
 import { router } from "expo-router";
 import { Linking, View } from "react-native";
 import { AppText } from "../ui/appText";
@@ -53,9 +53,9 @@ function ResetPermissionCard() {
 
 function ClearAllVideosCard() {
   const clearAllVideos = async () => {
-    const videos = await selectAllVideos();
+    const videos = await selectAllMetadatas();
     videos.forEach((video) => deleteVideoFile(video.filepath));
-    await deleteAllVideos();
+    await deleteAllMetadatas();
   };
 
   return (

@@ -1,7 +1,7 @@
 import { getDb } from "@/configs/Sqlite";
 import { VideoMetadataType } from "@/types/types";
 
-export const insertVideo = async (
+export const insertMetadata = async (
   video: Omit<VideoMetadataType, "id" | "createdAt">,
 ) => {
   try {
@@ -21,10 +21,12 @@ export const insertVideo = async (
   }
 };
 
-export const selectAllVideos = async (): Promise<VideoMetadataType[]> => {
+export const selectAllMetadatas = async (): Promise<VideoMetadataType[]> => {
   try {
     const db = await getDb();
-    const rows = await db.getAllAsync<any>("SELECT * FROM videos");
+    const rows = await db.getAllAsync<any>(
+      "SELECT * FROM videos ORDER BY unlock_date DESC",
+    );
     return rows.map((row) => ({
       id: row.id,
       title: row.title,
@@ -38,7 +40,7 @@ export const selectAllVideos = async (): Promise<VideoMetadataType[]> => {
     return [];
   }
 };
-export const selectVideo = async (
+export const selectMetadata = async (
   id: number,
 ): Promise<VideoMetadataType | null> => {
   try {
@@ -63,7 +65,7 @@ export const selectVideo = async (
   }
 };
 
-export const deleteVideo = async (id: number) => {
+export const deleteMetadata = async (id: number) => {
   try {
     const db = await getDb();
     const result = await db.runAsync("DELETE FROM videos WHERE id = ?", [id]);
@@ -74,7 +76,7 @@ export const deleteVideo = async (id: number) => {
   }
 };
 
-export const deleteAllVideos = async () => {
+export const deleteAllMetadatas = async () => {
   try {
     const db = await getDb();
     await db.runAsync("DELETE FROM videos");
