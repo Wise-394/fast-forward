@@ -23,6 +23,7 @@ export default function Timeline() {
         data={data}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => <AppText> {item.title}</AppText>}
+        ListEmptyComponent={<AppText>No time capsules yet </AppText>}
       />
     </Screen>
   );
