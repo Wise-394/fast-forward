@@ -22,12 +22,12 @@ export default function Timeline() {
 
   return (
     <Screen>
-      <AppText className="text-center text-lg">Timeline</AppText>
+      <AppText className="mb-4 text-center text-2xl">Timeline</AppText>
       <FlatList
         data={data}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => <CapsuleItem metadata={item} />}
-        contentContainerStyle={{ flexGrow: 1 }}
+        contentContainerStyle={{ flexGrow: 1, gap: 15 }}
         ListEmptyComponent={
           <View className="flex-1 items-center justify-center">
             <AppText className="text-center">No time capsules yet</AppText>
