@@ -1,5 +1,6 @@
 import { CameraView } from "expo-camera";
 import { File } from "expo-file-system";
+import Toast from "react-native-toast-message";
 import { create } from "zustand";
 
 interface RecordStore {
@@ -49,6 +50,7 @@ export const useRecordStore = create<RecordStore>((set, get) => ({
       }
     } catch (e) {
       console.warn("Failed to delete recorded video:", e);
+      Toast.show({ type: "warn", text1: "failed to delete temporary video" });
     }
     set({ recordedVideo: null });
   },

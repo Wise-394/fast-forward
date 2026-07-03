@@ -13,6 +13,7 @@ import { VideoMetadataType } from "@/types/types";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
+import Toast from "react-native-toast-message";
 
 export default function SaveRecording() {
   const [date, setDate] = useState(new Date());
@@ -52,6 +53,7 @@ export default function SaveRecording() {
     if (!filePath) return;
 
     handleSaveMetadata(filePath);
+    Toast.show({ type: "success", text1: "message sent to future" });
     router.replace("/");
   };
 
