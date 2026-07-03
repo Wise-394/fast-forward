@@ -17,7 +17,7 @@ import { View } from "react-native";
 export default function SaveRecording() {
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
-
+  const recordedVideo = useRecordStore((state) => state.recordedVideo);
   const [inputFields, setInputFields] = useState({
     title: "",
     description: "",
@@ -69,7 +69,7 @@ export default function SaveRecording() {
 
       {/* BODY */}
       <View className="mt-5 flex-1 gap-5">
-        <VidPreview />
+        <VidPreview uri={recordedVideo?.uri ?? ""} />
         <View>
           <AppText>Title</AppText>
           <AppInput

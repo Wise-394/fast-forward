@@ -1,3 +1,4 @@
+import { useSelectedCapsuleStore } from "@/store/useSelectedCapsuleStore";
 import { VideoMetadataType } from "@/types/types";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
@@ -6,9 +7,10 @@ import { AppText } from "../ui/appText";
 
 export function CapsuleItem({ metadata }: { metadata: VideoMetadataType }) {
   const isUnlocked = new Date(metadata.unlockDate) <= new Date();
-
+  const setMetadata = useSelectedCapsuleStore((state) => state.setMetadata);
   const handleRedirect = () => {
     if (!isUnlocked) return;
+    setMetadata(metadata);
     router.navigate("/capsule");
   };
   return (
