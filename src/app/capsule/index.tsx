@@ -7,6 +7,13 @@ import { View } from "react-native";
 
 export default function Capsule() {
   const metadata = useSelectedCapsuleStore((state) => state.metadata);
+  if (!metadata) {
+    return (
+      <Screen>
+        <AppText>Invalid Metadata</AppText>
+      </Screen>
+    );
+  }
   return (
     <Screen>
       <View className="flex-row items-center">
@@ -14,9 +21,13 @@ export default function Capsule() {
         <AppText className="text-lg">Home</AppText>
       </View>
       <View className="mt-3 gap-2">
-        <AppText className="text-2xl">{metadata?.title}</AppText>
-        <VidPreview uri={metadata?.filepath ?? ""} />
+        <AppText className="text-2xl">{metadata.title}</AppText>
+        <VidPreview uri={metadata.filepath ?? ""} />
+        {metadata.description && <AppText>{metadata.description}</AppText>}
       </View>
     </Screen>
   );
 }
+
+// TODO VALIDATIONS
+// TODO MODALS
