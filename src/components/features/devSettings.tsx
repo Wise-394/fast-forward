@@ -6,6 +6,7 @@ import {
 import { deleteVideoFile } from "@/services/storage/video/saveVideo";
 import { router } from "expo-router";
 import { Linking, View } from "react-native";
+import Toast from "react-native-toast-message";
 import { AppText } from "../ui/appText";
 import { WideButton } from "../ui/wideButton";
 
@@ -13,6 +14,7 @@ export function DevSettingsPanel() {
   return (
     <View>
       <AppText>Dev Tools</AppText>
+      <TestToastCard />
       <ResetUsernameCard />
       <ResetPermissionCard />
       <ClearAllVideosCard />
@@ -65,6 +67,22 @@ function ClearAllVideosCard() {
         Deletes all saved video files and their metadata.
       </AppText>
       <WideButton onClick={clearAllVideos} label="Delete All" />
+    </View>
+  );
+}
+
+function TestToastCard() {
+  const showToast = () => {
+    Toast.show({
+      type: "info",
+      text1: "pressed",
+      text2: "toast is working",
+    });
+  };
+  return (
+    <View className="bg-card rounded-xl p-4">
+      <AppText className="mb-2 font-bold">Test Toast</AppText>
+      <WideButton onClick={showToast} label="Show" />
     </View>
   );
 }
