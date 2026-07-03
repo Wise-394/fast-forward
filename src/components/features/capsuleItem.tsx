@@ -1,12 +1,21 @@
 import { VideoMetadataType } from "@/types/types";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { View } from "react-native";
+import { router } from "expo-router";
+import { Pressable, View } from "react-native";
 import { AppText } from "../ui/appText";
 
 export function CapsuleItem({ metadata }: { metadata: VideoMetadataType }) {
   const isUnlocked = new Date(metadata.unlockDate) <= new Date();
+
+  const handleRedirect = () => {
+    if (!isUnlocked) return;
+    router.navigate("/capsule");
+  };
   return (
-    <View className="flex w-full flex-row gap-5 rounded-2xl bg-surface-raised p-4 shadow-sm">
+    <Pressable
+      className="flex w-full flex-row gap-5 rounded-2xl bg-surface-raised p-4 shadow-sm"
+      onPress={handleRedirect}
+    >
       <View className="w-[20vw] items-center justify-center rounded-lg bg-text-primary">
         <Ionicons
           name={isUnlocked ? "play-outline" : "lock-closed-outline"}
@@ -26,6 +35,6 @@ export function CapsuleItem({ metadata }: { metadata: VideoMetadataType }) {
           Created {metadata.createdAt}
         </AppText>
       </View>
-    </View>
+    </Pressable>
   );
 }
