@@ -18,6 +18,7 @@ export const insertMetadata = async (
     );
   } catch (err) {
     console.error(err);
+    throw err;
   }
 };
 
@@ -37,7 +38,7 @@ export const selectAllMetadatas = async (): Promise<VideoMetadataType[]> => {
     }));
   } catch (err) {
     console.error(err);
-    return [];
+    throw err;
   }
 };
 export const selectMetadata = async (
@@ -61,7 +62,7 @@ export const selectMetadata = async (
     };
   } catch (err) {
     console.error(err);
-    return null;
+    throw err;
   }
 };
 
@@ -72,7 +73,7 @@ export const deleteMetadata = async (id: number) => {
     return result;
   } catch (err) {
     console.error(err);
-    return null;
+    throw err;
   }
 };
 
@@ -82,7 +83,6 @@ export const deleteAllMetadatas = async () => {
     await db.runAsync("DELETE FROM videos");
   } catch (err) {
     console.error(err);
+    throw err;
   }
 };
-//TODO MAKE ERROR MODAL
-//TODO CHANGE TO METADATA
