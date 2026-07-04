@@ -29,6 +29,5 @@ export default function Capsule() {
   );
 }
 
-// TODO VALIDATIONS
 //TODO Delete
 // TODO MODALS (for confirmations)
