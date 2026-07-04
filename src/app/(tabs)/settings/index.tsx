@@ -18,4 +18,3 @@ export default function Settings() {
     </Screen>
   );
 }
-// TODO add dev page for testing

@@ -2,15 +2,22 @@ import { Screen } from "@/components/Screen";
 import { AppInput } from "@/components/ui/appInput";
 import { AppText } from "@/components/ui/appText";
 import { WideButton } from "@/components/ui/wideButton";
+import { validateUsername } from "@/services/validations/validateUsername";
 import { useAuthStore } from "@/store/useAuthStore";
 import { router } from "expo-router";
 import { useState } from "react";
 import { View } from "react-native";
+import Toast from "react-native-toast-message";
 
 export default function Register() {
   const [usernameInput, setUsernameInput] = useState("");
   const setUsernameStore = useAuthStore((state) => state.setUsernameStore);
+
   const handleSubmit = () => {
+    const validationsErrors = validateUsername(usernameInput);
+    if (validationsErrors) {
+      return Toast.show({ type: "error", text1: validationsErrors });
+    }
     setUsernameStore(usernameInput);
     router.replace("/");
   };

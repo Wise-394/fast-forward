@@ -30,4 +30,5 @@ export default function Capsule() {
 }
 
 // TODO VALIDATIONS
-// TODO MODALS
+//TODO Delete
+// TODO MODALS (for confirmations)
