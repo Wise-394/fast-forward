@@ -8,6 +8,7 @@ import { AppMultiLine } from "@/components/ui/multiLineInput";
 import { WideButton } from "@/components/ui/wideButton";
 import { insertMetadata } from "@/services/storage/video/metadataQueries";
 import { saveVideo } from "@/services/storage/video/saveVideo";
+import { validateMetadataInput } from "@/services/validations/validateMetadata";
 import { useRecordStore } from "@/store/useRecordStore";
 import { VideoMetadataType } from "@/types/types";
 import { router } from "expo-router";
@@ -49,6 +50,15 @@ export default function SaveRecording() {
   };
 
   const handleSave = () => {
+    const validationErrors = validateMetadataInput(
+      inputFields.title,
+      inputFields.description,
+      date,
+    );
+    if (validationErrors) {
+      return Toast.show({ type: "error", text1: validationErrors });
+    }
+
     const filePath = handleSaveVideo();
     if (!filePath) return;
 
