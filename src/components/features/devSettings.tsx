@@ -40,7 +40,7 @@ function ResetUsernameCard() {
     <View className="bg-card rounded-xl p-4">
       <AppText className="font-bold">Reset Username</AppText>
       <AppText className="text-muted text-sm"></AppText>
-      <WideButton onClick={resetUsername} label="Reset" />
+      <WideButton onClick={resetUsername} label="Reset My Username" />
     </View>
   );
 }
