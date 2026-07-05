@@ -13,7 +13,7 @@ import { useRecordStore } from "@/store/useRecordStore";
 import { VideoMetadataType } from "@/types/types";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 import Toast from "react-native-toast-message";
 
 export default function SaveRecording() {
@@ -80,7 +80,7 @@ export default function SaveRecording() {
       </View>
 
       {/* BODY */}
-      <View className="mt-5 flex-1 gap-5">
+      <ScrollView className="mt-5 flex-1 gap-5">
         <VidPreview uri={recordedVideo?.uri ?? ""} />
         <View>
           <AppText>Title</AppText>
@@ -117,7 +117,7 @@ export default function SaveRecording() {
             setOpen={setOpen}
           />
         </View>
-      </View>
+      </ScrollView>
       <WideButton label="Send to future" onClick={() => handleSave()} />
     </Screen>
   );

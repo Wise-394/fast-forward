@@ -5,6 +5,7 @@ export function validateMetadataInput(
 ): string | null {
   if (!title) return "title cannot be empty";
   if (!selectedDate) return "selected date cannot be empty";
+  if (title.length > 30) return "title cannot be longer than 30";
   if (description.length > 500) return "note cannot be longer than 500";
   const today = new Date();
   today.setHours(0, 0, 0, 0);

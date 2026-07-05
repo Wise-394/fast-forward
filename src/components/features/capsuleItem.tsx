@@ -1,5 +1,4 @@
-import { deleteMetadata } from "@/services/storage/video/metadataQueries";
-import { deleteVideoFile } from "@/services/storage/video/saveVideo";
+import { deleteVideoAndMetadata } from "@/services/helpers/deleteVideoAndMetadata";
 import { useConfirmationModal } from "@/store/useConfirmationModal";
 import { useSelectedCapsuleStore } from "@/store/useSelectedCapsuleStore";
 import { VideoMetadataType } from "@/types/types";
@@ -29,8 +28,7 @@ export function CapsuleItem({
   };
   const handleDelete = async () => {
     try {
-      deleteVideoFile(metadata.filepath);
-      await deleteMetadata(metadata.id);
+      deleteVideoAndMetadata(metadata);
       closeModal();
       onDeleted(metadata.id);
     } catch (err) {

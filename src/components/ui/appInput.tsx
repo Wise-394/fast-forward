@@ -17,10 +17,11 @@ export function AppInput({
     <TextInput
       textAlign={textAlign}
       value={value}
-      onChangeText={onChange}
+      onChangeText={(text) => onChange(text.replace(/\r?\n/g, ""))}
       placeholder={placeholder ?? ""}
-      defaultValue=""
-      className="rounded-lg bg-surface-raised p-5 text-lg text-text-primary placeholder:text-text-muted"
+      multiline={false}
+      numberOfLines={1}
+      className="h-18 rounded-lg bg-surface-raised p-5 text-lg text-text-primary placeholder:text-text-muted"
     />
   );
 }
