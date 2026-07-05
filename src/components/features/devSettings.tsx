@@ -4,17 +4,15 @@ import {
   selectAllMetadatas,
 } from "@/services/storage/video/metadataQueries";
 import { deleteVideoFile } from "@/services/storage/video/saveVideo";
+import { useConfirmationModal } from "@/store/useConfirmationModal";
 import { router } from "expo-router";
 import { Linking, View } from "react-native";
-import Toast from "react-native-toast-message";
 import { AppText } from "../ui/appText";
 import { WideButton } from "../ui/wideButton";
 
 export function DevSettingsPanel() {
   return (
     <View>
-      <AppText>Dev Tools</AppText>
-      <TestToastCard />
       <ResetUsernameCard />
       <ResetPermissionCard />
       <ClearAllVideosCard />
@@ -23,10 +21,21 @@ export function DevSettingsPanel() {
 }
 
 function ResetUsernameCard() {
+  const openModal = useConfirmationModal((state) => state.openModal);
+  const closeModal = useConfirmationModal((state) => state.closeModal);
+
   const resetUsername = () => {
-    setUsername("");
-    router.replace("/onboarding");
+    openModal({
+      type: "danger",
+      message: "This will reset your username and send you back to onboarding.",
+      onConfirm: () => {
+        setUsername("");
+        router.replace("/onboarding");
+        closeModal();
+      },
+    });
   };
+
   return (
     <View className="bg-card rounded-xl p-4">
       <AppText className="font-bold">Reset Username</AppText>
@@ -54,10 +63,20 @@ function ResetPermissionCard() {
 }
 
 function ClearAllVideosCard() {
-  const clearAllVideos = async () => {
-    const videos = await selectAllMetadatas();
-    videos.forEach((video) => deleteVideoFile(video.filepath));
-    await deleteAllMetadatas();
+  const openModal = useConfirmationModal((state) => state.openModal);
+  const closeModal = useConfirmationModal((state) => state.closeModal);
+
+  const clearAllVideos = () => {
+    openModal({
+      type: "danger",
+      message: "Deletes all saved video files and their metadata.",
+      onConfirm: async () => {
+        const videos = await selectAllMetadatas();
+        videos.forEach((video) => deleteVideoFile(video.filepath));
+        await deleteAllMetadatas();
+        closeModal();
+      },
+    });
   };
 
   return (
@@ -67,22 +86,6 @@ function ClearAllVideosCard() {
         Deletes all saved video files and their metadata.
       </AppText>
       <WideButton onClick={clearAllVideos} label="Delete All" />
-    </View>
-  );
-}
-
-function TestToastCard() {
-  const showToast = () => {
-    Toast.show({
-      type: "info",
-      text1: "pressed",
-      text2: "toast is working",
-    });
-  };
-  return (
-    <View className="bg-card rounded-xl p-4">
-      <AppText className="mb-2 font-bold">Test Toast</AppText>
-      <WideButton onClick={showToast} label="Show" />
     </View>
   );
 }
