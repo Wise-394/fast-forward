@@ -1,10 +1,11 @@
 import { useEffect, useRef } from "react";
-import { Animated, Easing, View } from "react-native";
+import { Animated, Easing, Pressable, View } from "react-native";
 
 export default function PlanetOrb() {
   const rotateOrbit = useRef(new Animated.Value(0)).current;
   const rotateRing = useRef(new Animated.Value(0)).current;
   const pulse = useRef(new Animated.Value(0)).current;
+  const pressScale = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
     // orbit dot spinning around
@@ -61,34 +62,53 @@ export default function PlanetOrb() {
     outputRange: [1, 1.08],
   });
 
+  const handlePressIn = () => {
+    Animated.spring(pressScale, {
+      toValue: 0.92,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const handlePressOut = () => {
+    Animated.spring(pressScale, {
+      toValue: 1,
+      friction: 4,
+      useNativeDriver: true,
+    }).start();
+  };
+
   return (
-    <View className="h-[55vw] w-[55vw] items-center justify-center">
-      {/* outer faint ring */}
-      <Animated.View
-        style={{ transform: [{ rotate: ringSpin }] }}
-        className="absolute h-[55vw] w-[55vw] rounded-full border border-blue-500/20"
-      >
-        <View className="absolute left-10 top-2 h-1 w-1 rounded-full bg-white" />
-        <View className="absolute bottom-3 right-5 h-1 w-1 rounded-full bg-white" />
-      </Animated.View>
+    <Pressable onPressIn={handlePressIn} onPressOut={handlePressOut}>
+      <Animated.View style={{ transform: [{ scale: pressScale }] }}>
+        <View className="h-[55vw] w-[55vw] items-center justify-center">
+          {/* outer faint ring */}
+          <Animated.View
+            style={{ transform: [{ rotate: ringSpin }] }}
+            className="absolute h-[55vw] w-[55vw] rounded-full border border-blue-500/20"
+          >
+            <View className="absolute left-10 top-2 h-1 w-1 rounded-full bg-white" />
+            <View className="absolute bottom-3 right-5 h-1 w-1 rounded-full bg-white" />
+          </Animated.View>
 
-      {/* inner ring with orbiting dot */}
-      <Animated.View
-        style={{ transform: [{ rotate: orbitSpin }] }}
-        className="absolute h-[48vw] w-[48vw] items-center rounded-full border border-blue-500/40"
-      >
-        <View className="absolute -top-1 h-2 w-2 rounded-full bg-blue-500" />
-      </Animated.View>
+          {/* inner ring with orbiting dot */}
+          <Animated.View
+            style={{ transform: [{ rotate: orbitSpin }] }}
+            className="absolute h-[48vw] w-[48vw] items-center rounded-full border border-blue-500/40"
+          >
+            <View className="absolute -top-1 h-2 w-2 rounded-full bg-blue-500" />
+          </Animated.View>
 
-      {/* planet with glow pulse */}
-      <Animated.View
-        style={{ transform: [{ scale: glowScale }] }}
-        className="h-[27vw] w-[27vw] items-center justify-center"
-      >
-        <View className="h-[27vw] w-[27vw] overflow-hidden rounded-full border border-blue-500 bg-blue-950">
-          <View className="absolute left-6 top-5 h-6 w-10 rounded-full bg-blue-400/25" />
+          {/* planet with glow pulse */}
+          <Animated.View
+            style={{ transform: [{ scale: glowScale }] }}
+            className="h-[27vw] w-[27vw] items-center justify-center"
+          >
+            <View className="h-[27vw] w-[27vw] overflow-hidden rounded-full border border-blue-500 bg-blue-950">
+              <View className="absolute left-6 top-5 h-6 w-10 rounded-full bg-blue-400/25" />
+            </View>
+          </Animated.View>
         </View>
       </Animated.View>
-    </View>
+    </Pressable>
   );
 }

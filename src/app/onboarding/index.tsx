@@ -1,3 +1,4 @@
+import PlanetOrb from "@/components/features/PlanetOrb";
 import { Screen } from "@/components/Screen";
 import { AppText } from "@/components/ui/appText";
 import { WideButton } from "@/components/ui/wideButton";
@@ -12,7 +13,11 @@ export default function OnboardingScreen() {
   return (
     <Screen>
       <AppText className="text-2xl font-bold">Flash Forward</AppText>
-      <View className="mt-auto items-center text-center">
+
+      <View className="flex-1 pt-[15vh]">
+        <View className="mb-5 items-center p-5">
+          <PlanetOrb />
+        </View>
         <AppText className="text-center text-2xl font-bold">
           Record Today, Watch Tomorrow
         </AppText>
