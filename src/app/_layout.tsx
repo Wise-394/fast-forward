@@ -1,3 +1,4 @@
+import { ConfirmationModal } from "@/components/ui/confirmationModal";
 import { createTable } from "@/configs/Sqlite";
 import { useAuthStore } from "@/store/useAuthStore";
 import { router, Stack } from "expo-router";
@@ -22,6 +23,7 @@ export default function RootLayout() {
     <SafeAreaProvider>
       <Stack screenOptions={{ headerShown: false }} />
       <Toast />
+      <ConfirmationModal />
     </SafeAreaProvider>
   );
 }

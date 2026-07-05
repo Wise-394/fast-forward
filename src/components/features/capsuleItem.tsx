@@ -1,3 +1,4 @@
+import { useConfirmationModal } from "@/store/useConfirmationModal";
 import { useSelectedCapsuleStore } from "@/store/useSelectedCapsuleStore";
 import { VideoMetadataType } from "@/types/types";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -9,6 +10,7 @@ import { AppText } from "../ui/appText";
 export function CapsuleItem({ metadata }: { metadata: VideoMetadataType }) {
   const isUnlocked = new Date(metadata.unlockDate) <= new Date();
   const setMetadata = useSelectedCapsuleStore((state) => state.setMetadata);
+  const openModal = useConfirmationModal((state) => state.openModal);
 
   const handleRedirect = () => {
     if (!isUnlocked) return;
@@ -46,6 +48,11 @@ export function CapsuleItem({ metadata }: { metadata: VideoMetadataType }) {
         onPressAction={({ nativeEvent }) => {
           if (nativeEvent.event === "delete") {
             //TODO DELETE POP UP ITEM
+            openModal({
+              type: "danger",
+              message: "This will permanently delete your video message",
+              onConfirm: () => {},
+            });
           }
         }}
         actions={[
