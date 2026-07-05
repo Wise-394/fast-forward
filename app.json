@@ -46,6 +46,13 @@
           "barcodeScannerEnabled": false
         }
       ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "false",
+          "savePhotosPermission": "Allow $(PRODUCT_NAME) to save videos to your gallery."
+        }
+      ],
       "expo-video",
       "expo-sqlite"
     ],

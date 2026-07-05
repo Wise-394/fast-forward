@@ -26,15 +26,26 @@ export function CapsuleItem({
     setMetadata(metadata);
     router.navigate("/capsule");
   };
+
   const handleDelete = async () => {
     try {
-      deleteVideoAndMetadata(metadata);
+      await deleteVideoAndMetadata(metadata);
       closeModal();
       onDeleted(metadata.id);
     } catch (err) {
       console.error(err);
       Toast.show({ type: "error", text1: "Error when deleting video" });
       closeModal();
+    }
+  };
+
+  const showModal = ({ nativeEvent }: { nativeEvent: { event: string } }) => {
+    if (nativeEvent.event === "delete") {
+      openModal({
+        type: "danger",
+        message: "This will permanently delete your video message",
+        onConfirm: () => handleDelete(),
+      });
     }
   };
 
@@ -65,16 +76,7 @@ export function CapsuleItem({
         </View>
       </Pressable>
       <MenuView
-        onPressAction={({ nativeEvent }) => {
-          if (nativeEvent.event === "delete") {
-            //TODO DELETE POP UP ITEM
-            openModal({
-              type: "danger",
-              message: "This will permanently delete your video message",
-              onConfirm: () => handleDelete(),
-            });
-          }
-        }}
+        onPressAction={showModal}
         actions={[
           { id: "delete", title: "Delete", attributes: { destructive: true } },
         ]}

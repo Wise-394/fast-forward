@@ -8,7 +8,10 @@ import { useConfirmationModal } from "@/store/useConfirmationModal";
 import { useSelectedCapsuleStore } from "@/store/useSelectedCapsuleStore";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { MenuView } from "@react-native-menu/menu";
+import * as MediaLibrary from "expo-media-library";
+import { Asset } from "expo-media-library";
 import { router } from "expo-router";
+import { useState } from "react";
 import { ScrollView, View } from "react-native";
 import Toast from "react-native-toast-message";
 
@@ -16,6 +19,7 @@ export default function Capsule() {
   const metadata = useSelectedCapsuleStore((state) => state.metadata);
   const openModal = useConfirmationModal((state) => state.openModal);
   const closeModal = useConfirmationModal((state) => state.closeModal);
+  const [isSaved, setIsSaved] = useState(false);
   if (!metadata) {
     return (
       <Screen>
@@ -23,9 +27,9 @@ export default function Capsule() {
       </Screen>
     );
   }
-  const handleDelete = () => {
+  const handleDelete = async () => {
     try {
-      deleteVideoAndMetadata(metadata);
+      await deleteVideoAndMetadata(metadata);
       closeModal();
       router.replace("/");
     } catch (err) {
@@ -34,7 +38,34 @@ export default function Capsule() {
       router.replace("/");
     }
   };
-  const handleSaveToGallery = () => {};
+  const showModal = ({ nativeEvent }: { nativeEvent: { event: string } }) => {
+    if (nativeEvent.event === "delete") {
+      openModal({
+        type: "danger",
+        message: "This will permanently delete your video message",
+        onConfirm: () => handleDelete(),
+      });
+    }
+  };
+
+  const handleSaveVideoToGallery = async () => {
+    const { status } = await MediaLibrary.requestPermissionsAsync(true);
+    if (status !== "granted") {
+      return Toast.show({
+        type: "error",
+        text1: "No permission to save video",
+        text2: "enable saving photo permission at settings",
+      });
+    }
+
+    if (isSaved) {
+      return Toast.show({ type: "info", text1: "video already saved" });
+    }
+
+    await Asset.create(metadata.filepath);
+    setIsSaved(true);
+    Toast.show({ type: "success", text1: "Saved succesfully" });
+  };
 
   return (
     <Screen>
@@ -42,16 +73,7 @@ export default function Capsule() {
         <BackButton />
         <AppText className="text-lg">Home</AppText>
         <MenuView
-          onPressAction={({ nativeEvent }) => {
-            if (nativeEvent.event === "delete") {
-              //TODO DELETE POP UP ITEM
-              openModal({
-                type: "danger",
-                message: "This will permanently delete your video message",
-                onConfirm: () => handleDelete(),
-              });
-            }
-          }}
+          onPressAction={(nativeEvent) => showModal(nativeEvent)}
           actions={[
             {
               id: "delete",
@@ -74,12 +96,11 @@ export default function Capsule() {
       <View className="mb-[5%] mt-auto">
         <WideButton
           label="save to gallery"
-          onClick={() => handleSaveToGallery()}
+          onClick={() => handleSaveVideoToGallery()}
         />
       </View>
     </Screen>
   );
 }
 
-//TODO Delete
-// TODO MODALS (for confirmations)
+//TODO saving to gallery
