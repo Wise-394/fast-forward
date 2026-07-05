@@ -9,6 +9,9 @@ import { FlatList, View } from "react-native";
 
 export default function Timeline() {
   const [data, setData] = useState<VideoMetadataType[]>([]);
+  const handleDeleted = (id: number) => {
+    setData((prev) => prev.filter((item) => item.id !== id));
+  };
 
   useFocusEffect(
     useCallback(() => {
@@ -26,7 +29,9 @@ export default function Timeline() {
       <FlatList
         data={data}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => <CapsuleItem metadata={item} />}
+        renderItem={({ item }) => (
+          <CapsuleItem metadata={item} onDeleted={handleDeleted} />
+        )}
         contentContainerStyle={{ flexGrow: 1, gap: 15 }}
         ListEmptyComponent={
           <View className="flex-1 items-center justify-center">

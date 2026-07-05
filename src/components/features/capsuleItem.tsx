@@ -1,3 +1,5 @@
+import { deleteMetadata } from "@/services/storage/video/metadataQueries";
+import { deleteVideoFile } from "@/services/storage/video/saveVideo";
 import { useConfirmationModal } from "@/store/useConfirmationModal";
 import { useSelectedCapsuleStore } from "@/store/useSelectedCapsuleStore";
 import { VideoMetadataType } from "@/types/types";
@@ -5,17 +7,37 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { MenuView } from "@react-native-menu/menu";
 import { router } from "expo-router";
 import { Pressable, View } from "react-native";
+import Toast from "react-native-toast-message";
 import { AppText } from "../ui/appText";
 
-export function CapsuleItem({ metadata }: { metadata: VideoMetadataType }) {
+export function CapsuleItem({
+  metadata,
+  onDeleted,
+}: {
+  metadata: VideoMetadataType;
+  onDeleted: (id: number) => void;
+}) {
   const isUnlocked = new Date(metadata.unlockDate) <= new Date();
   const setMetadata = useSelectedCapsuleStore((state) => state.setMetadata);
   const openModal = useConfirmationModal((state) => state.openModal);
+  const closeModal = useConfirmationModal((state) => state.closeModal);
 
   const handleRedirect = () => {
     if (!isUnlocked) return;
     setMetadata(metadata);
     router.navigate("/capsule");
+  };
+  const handleDelete = async () => {
+    try {
+      deleteVideoFile(metadata.filepath);
+      await deleteMetadata(metadata.id);
+      closeModal();
+      onDeleted(metadata.id);
+    } catch (err) {
+      console.error(err);
+      Toast.show({ type: "error", text1: "Error when deleting video" });
+      closeModal();
+    }
   };
 
   return (
@@ -51,7 +73,7 @@ export function CapsuleItem({ metadata }: { metadata: VideoMetadataType }) {
             openModal({
               type: "danger",
               message: "This will permanently delete your video message",
-              onConfirm: () => {},
+              onConfirm: () => handleDelete(),
             });
           }
         }}
