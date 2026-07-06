@@ -17,6 +17,7 @@ module.exports = {
         success: "#60b8ff",
         warning: "#d4aa50",
         danger: "#e05a5a",
+        locked: "#6b7f99",
       },
     },
   },

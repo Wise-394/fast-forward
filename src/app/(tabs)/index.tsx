@@ -12,11 +12,7 @@ export default function Index() {
   return (
     <Screen>
       <AppText className="text-2xl font-bold">Flash Forward</AppText>
-      <View className="mt-auto">
-        <View className="mb-5 items-center p-5">
-          <PlanetOrb />
-        </View>
-
+      <View className="mt-[15vh]">
         <AppText className="text-center text-text-secondary">
           Good Day, {username}
         </AppText>
@@ -24,8 +20,15 @@ export default function Index() {
           Your future self is waiting
         </AppText>
       </View>
+      <View className="mt-5 items-center p-5">
+        <PlanetOrb />
+      </View>
       <View className="mt-auto">
-        <WideButton label="record" onClick={handleRedirectToRecord} />
+        <WideButton
+          label="record"
+          onClick={handleRedirectToRecord}
+          icon="videocam-outline"
+        />
       </View>
     </Screen>
   );

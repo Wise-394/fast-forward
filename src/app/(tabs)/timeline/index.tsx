@@ -9,6 +9,7 @@ import { FlatList, View } from "react-native";
 
 export default function Timeline() {
   const [data, setData] = useState<VideoMetadataType[]>([]);
+
   const handleDeleted = (id: number) => {
     setData((prev) => prev.filter((item) => item.id !== id));
   };
