@@ -1,3 +1,4 @@
+import { CapsuleMenu } from "@/components/features/capsuleMenu";
 import { VidPreview } from "@/components/features/vidPreview";
 import { Screen } from "@/components/Screen";
 import { AppText } from "@/components/ui/appText";
@@ -6,8 +7,6 @@ import { WideButton } from "@/components/ui/wideButton";
 import { deleteVideoAndMetadata } from "@/services/helpers/deleteVideoAndMetadata";
 import { useConfirmationModal } from "@/store/useConfirmationModal";
 import { useSelectedCapsuleStore } from "@/store/useSelectedCapsuleStore";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import { MenuView } from "@react-native-menu/menu";
 import * as MediaLibrary from "expo-media-library";
 import { Asset } from "expo-media-library";
 import { router } from "expo-router";
@@ -38,14 +37,12 @@ export default function Capsule() {
       router.replace("/");
     }
   };
-  const showModal = ({ nativeEvent }: { nativeEvent: { event: string } }) => {
-    if (nativeEvent.event === "delete") {
-      openModal({
-        type: "danger",
-        message: "This will permanently delete your video message",
-        onConfirm: () => handleDelete(),
-      });
-    }
+  const handleDeleteSelect = () => {
+    openModal({
+      type: "danger",
+      message: "This will permanently delete your video message",
+      onConfirm: () => handleDelete(),
+    });
   };
 
   const handleSaveVideoToGallery = async () => {
@@ -72,19 +69,7 @@ export default function Capsule() {
       <View className="flex-row items-center">
         <BackButton />
         <AppText className="text-lg">Home</AppText>
-        <MenuView
-          onPressAction={(nativeEvent) => showModal(nativeEvent)}
-          actions={[
-            {
-              id: "delete",
-              title: "Delete",
-              attributes: { destructive: true },
-            },
-          ]}
-          style={{ position: "absolute", right: 12, top: 12, padding: 8 }}
-        >
-          <Ionicons name="ellipsis-vertical-outline" color="white" size={18} />
-        </MenuView>
+        <CapsuleMenu onDelete={handleDeleteSelect} />
       </View>
 
       <ScrollView className="mt-3 gap-2">
@@ -102,5 +87,3 @@ export default function Capsule() {
     </Screen>
   );
 }
-
-//TODO saving to gallery

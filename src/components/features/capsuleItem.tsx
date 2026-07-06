@@ -4,11 +4,11 @@ import { useConfirmationModal } from "@/store/useConfirmationModal";
 import { useSelectedCapsuleStore } from "@/store/useSelectedCapsuleStore";
 import { VideoMetadataType } from "@/types/types";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { MenuView } from "@react-native-menu/menu";
 import { router } from "expo-router";
 import { useRef } from "react";
 import { Animated, Pressable, View } from "react-native";
 import Toast from "react-native-toast-message";
+import { CapsuleMenu } from "../features/capsuleMenu";
 import { AppText } from "../ui/appText";
 
 export function CapsuleItem({
@@ -90,14 +90,12 @@ export function CapsuleItem({
     }
   };
 
-  const showModal = ({ nativeEvent }: { nativeEvent: { event: string } }) => {
-    if (nativeEvent.event === "delete") {
-      openModal({
-        type: "danger",
-        message: "This will permanently delete your video message",
-        onConfirm: () => handleDelete(),
-      });
-    }
+  const handleDeleteSelect = () => {
+    openModal({
+      type: "danger",
+      message: "This will permanently delete your video message",
+      onConfirm: () => handleDelete(),
+    });
   };
 
   return (
@@ -127,7 +125,9 @@ export function CapsuleItem({
           </View>
 
           <AppText className="text-sm text-text-muted">
-            {isUnlocked ? "Ready to watch" : `Opens ${formattedUnlockedDate}`}
+            {isUnlocked
+              ? "Ready to watch"
+              : `Arrives in ${formattedUnlockedDate}`}
           </AppText>
 
           {!isUnlocked && (
@@ -150,19 +150,7 @@ export function CapsuleItem({
         </View>
       </Pressable>
 
-      <MenuView
-        onPressAction={showModal}
-        actions={[
-          {
-            id: "delete",
-            title: "Delete",
-            attributes: { destructive: true },
-          },
-        ]}
-        style={{ position: "absolute", right: 10, top: 10, padding: 8 }}
-      >
-        <Ionicons name="ellipsis-vertical" color="white" size={18} />
-      </MenuView>
+      <CapsuleMenu onDelete={handleDeleteSelect} />
     </Animated.View>
   );
 }

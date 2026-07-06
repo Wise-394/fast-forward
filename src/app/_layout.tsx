@@ -3,6 +3,7 @@ import { createTable } from "@/configs/Sqlite";
 import { useAuthStore } from "@/store/useAuthStore";
 import { router, Stack } from "expo-router";
 import { useEffect } from "react";
+import { MenuProvider } from "react-native-popup-menu";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Toast from "react-native-toast-message";
 import "../../global.css";
@@ -21,9 +22,11 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
-      <Stack screenOptions={{ headerShown: false }} />
-      <Toast />
-      <ConfirmationModal />
+      <MenuProvider>
+        <Stack screenOptions={{ headerShown: false }} />
+        <Toast />
+        <ConfirmationModal />
+      </MenuProvider>
     </SafeAreaProvider>
   );
 }
