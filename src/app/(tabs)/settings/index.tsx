@@ -7,7 +7,7 @@ import { ScrollView, View } from "react-native";
 export default function Settings() {
   return (
     <Screen>
-      <AppText className="p-4 text-lg">SETTINGS</AppText>
+      <AppText className="mb-4 text-2xl font-bold">Settings</AppText>
       <ScrollView>
         <View className="items-center">
           <Profile />

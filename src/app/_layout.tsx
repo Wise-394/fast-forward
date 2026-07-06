@@ -1,5 +1,6 @@
 import { ConfirmationModal } from "@/components/ui/confirmationModal";
 import { createTable } from "@/configs/Sqlite";
+import { toastConfig } from "@/configs/toast";
 import { useAuthStore } from "@/store/useAuthStore";
 import { router, Stack } from "expo-router";
 import { useEffect } from "react";
@@ -24,7 +25,7 @@ export default function RootLayout() {
     <SafeAreaProvider>
       <MenuProvider>
         <Stack screenOptions={{ headerShown: false }} />
-        <Toast />
+        <Toast config={toastConfig} />
         <ConfirmationModal />
       </MenuProvider>
     </SafeAreaProvider>
