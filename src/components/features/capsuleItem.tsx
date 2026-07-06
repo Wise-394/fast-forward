@@ -6,7 +6,8 @@ import { VideoMetadataType } from "@/types/types";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { MenuView } from "@react-native-menu/menu";
 import { router } from "expo-router";
-import { Pressable, View } from "react-native";
+import { useRef } from "react";
+import { Animated, Pressable, View } from "react-native";
 import Toast from "react-native-toast-message";
 import { AppText } from "../ui/appText";
 
@@ -24,6 +25,8 @@ export function CapsuleItem({
   const formattedUnlockedDate = formatDate(metadata.unlockDate);
   const formattedCreatedDate = formatDate(metadata.createdAt);
 
+  const shakeAnim = useRef(new Animated.Value(0)).current;
+
   const now = new Date();
   const created = new Date(metadata.createdAt);
   const unlock = new Date(metadata.unlockDate);
@@ -40,8 +43,37 @@ export function CapsuleItem({
         ),
       );
 
+  const playShake = () => {
+    shakeAnim.setValue(0);
+    Animated.sequence([
+      Animated.timing(shakeAnim, {
+        toValue: 2,
+        duration: 60,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnim, {
+        toValue: -2,
+        duration: 60,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnim, {
+        toValue: 2,
+        duration: 60,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnim, {
+        toValue: 0,
+        duration: 60,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  };
+
   const handleRedirect = () => {
-    if (!isUnlocked) return;
+    if (!isUnlocked) {
+      playShake();
+      return;
+    }
     setMetadata(metadata);
     router.navigate("/capsule");
   };
@@ -69,7 +101,10 @@ export function CapsuleItem({
   };
 
   return (
-    <View className="relative flex w-full flex-row gap-4 rounded-3xl border border-primary-bright/25 bg-surface-raised p-4 shadow-md">
+    <Animated.View
+      style={{ transform: [{ translateX: shakeAnim }] }}
+      className="relative flex w-full flex-row gap-4 rounded-3xl border border-primary-bright/25 bg-surface-raised p-4 shadow-md"
+    >
       <Pressable
         className="flex flex-1 flex-row items-center gap-4"
         onPress={handleRedirect}
@@ -128,6 +163,6 @@ export function CapsuleItem({
       >
         <Ionicons name="ellipsis-vertical" color="white" size={18} />
       </MenuView>
-    </View>
+    </Animated.View>
   );
 }

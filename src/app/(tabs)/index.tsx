@@ -25,7 +25,7 @@ export default function Index() {
       </View>
       <View className="mt-auto">
         <WideButton
-          label="record"
+          label="Record"
           onClick={handleRedirectToRecord}
           icon="videocam-outline"
         />

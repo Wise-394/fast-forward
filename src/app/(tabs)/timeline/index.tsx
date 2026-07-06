@@ -26,7 +26,9 @@ export default function Timeline() {
 
   return (
     <Screen>
-      <AppText className="mb-4 text-center text-2xl">Timeline</AppText>
+      <AppText className="mb-4 text-center text-2xl font-bold">
+        Timeline
+      </AppText>
       <FlatList
         data={data}
         keyExtractor={(item) => item.id.toString()}
