@@ -70,55 +70,73 @@ export default function SaveRecording() {
   return (
     <Screen>
       {/* HEADER */}
-      <View className="relative flex flex-row items-center justify-center">
+      <View className="relative flex flex-row items-center justify-center pb-2">
         <View className="absolute left-1">
           <BackButton />
         </View>
-        <AppText className="text-center text-2xl font-bold">
+        <AppText className="text-center text-2xl font-bold tracking-tight">
           New Capsule
         </AppText>
       </View>
 
       {/* BODY */}
-      <ScrollView className="mt-5 flex-1 gap-5">
-        <VidPreview uri={recordedVideo?.uri ?? ""} />
-        <View>
-          <AppText>Title</AppText>
-          <AppInput
-            value={inputFields.title}
-            onChange={(text) =>
-              setInputFields((state) => ({ ...state, title: text }))
-            }
-            placeholder="Sample title"
-            textAlign="left"
-          />
+      <ScrollView
+        className="flex-1"
+        contentContainerClassName="gap-4 pb-4"
+        showsVerticalScrollIndicator={false}
+      >
+        <View className="overflow-hidden rounded-2xl">
+          <VidPreview uri={recordedVideo?.uri ?? ""} />
         </View>
-        <View>
-          <AppText>
-            Note to future self
-            <AppText className="text-sm text-text-muted"> (Optional)</AppText>
-          </AppText>
-          <AppMultiLine
-            placeholder="Sample"
-            multiline={true}
-            lines={10}
-            value={inputFields.description}
-            onchange={(text) =>
-              setInputFields((state) => ({ ...state, description: text }))
-            }
-          />
-        </View>
-        <View>
-          <AppText>Date</AppText>
-          <AppDatePicker
-            date={date}
-            setDate={setDate}
-            open={open}
-            setOpen={setOpen}
-          />
+
+        <View className="bg-background-secondary gap-3 rounded-2xl border border-primary-bright/25 p-3">
+          <View className="gap-1">
+            <AppText className="text-sm font-semibold text-text-muted">
+              Title
+            </AppText>
+            <AppInput
+              value={inputFields.title}
+              onChange={(text) =>
+                setInputFields((state) => ({ ...state, title: text }))
+              }
+              placeholder="Sample title"
+              textAlign="left"
+            />
+          </View>
+
+          <View className="gap-1">
+            <AppText className="text-sm font-semibold text-text-muted">
+              Note to future self
+              <AppText className="text-sm text-text-muted"> (Optional)</AppText>
+            </AppText>
+            <AppMultiLine
+              placeholder="Sample"
+              multiline={true}
+              lines={10}
+              value={inputFields.description}
+              onchange={(text) =>
+                setInputFields((state) => ({ ...state, description: text }))
+              }
+            />
+          </View>
+
+          <View className="gap-1">
+            <AppText className="text-sm font-semibold text-text-muted">
+              Date
+            </AppText>
+            <AppDatePicker
+              date={date}
+              setDate={setDate}
+              open={open}
+              setOpen={setOpen}
+            />
+          </View>
         </View>
       </ScrollView>
-      <WideButton label="Send to future" onClick={() => handleSave()} />
+
+      <View className="pt-2">
+        <WideButton label="Send to future" onClick={() => handleSave()} />
+      </View>
     </Screen>
   );
 }

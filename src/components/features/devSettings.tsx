@@ -5,6 +5,7 @@ import {
 } from "@/services/storage/video/metadataQueries";
 import { deleteVideoFile } from "@/services/storage/video/saveVideo";
 import { useConfirmationModal } from "@/store/useConfirmationModal";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
 import { Linking, View } from "react-native";
 import { AppText } from "../ui/appText";
@@ -13,8 +14,8 @@ import { WideButton } from "../ui/wideButton";
 export function DevSettingsPanel() {
   return (
     <View>
-      <ResetUsernameCard />
       <ResetPermissionCard />
+      <ResetUsernameCard />
       <ClearAllVideosCard />
     </View>
   );
@@ -38,7 +39,10 @@ function ResetUsernameCard() {
 
   return (
     <View className="bg-card rounded-xl p-4">
-      <AppText className="font-bold">Reset Username</AppText>
+      <View className="mb-1 flex-row items-center gap-2">
+        <Ionicons name="person-remove-outline" size={18} color="#e05a5a" />
+        <AppText className="font-bold">Reset Username</AppText>
+      </View>
       <AppText className="text-muted text-sm"></AppText>
       <WideButton onClick={resetUsername} label="Reset My Username" />
     </View>
@@ -52,7 +56,10 @@ function ResetPermissionCard() {
 
   return (
     <View className="bg-card rounded-xl p-4">
-      <AppText className="mb-2 font-bold">Camera / Mic Permissions</AppText>
+      <View className="mb-2 flex-row items-center gap-2">
+        <Ionicons name="settings-outline" size={18} color="#1a3a7a" />
+        <AppText className="font-bold">Camera / Mic Permissions</AppText>
+      </View>
       <AppText className="text-muted mb-3 text-sm">
         Permissions can't be reset from inside the app. Tap below to open
         Settings, then toggle Camera/Microphone off and back on.
@@ -81,7 +88,10 @@ function ClearAllVideosCard() {
 
   return (
     <View className="bg-card rounded-xl p-4">
-      <AppText className="mb-2 font-bold">Clear All Videos</AppText>
+      <View className="mb-2 flex-row items-center gap-2">
+        <Ionicons name="trash-outline" size={18} color="#e05a5a" />
+        <AppText className="font-bold">Clear All Videos</AppText>
+      </View>
       <AppText className="text-muted mb-3 text-sm">
         Deletes all saved video files and their metadata.
       </AppText>

@@ -1,4 +1,5 @@
 import { CapsuleMenu } from "@/components/features/capsuleMenu";
+import { FutureNotes } from "@/components/features/futureNotes";
 import { VidPreview } from "@/components/features/vidPreview";
 import { Screen } from "@/components/Screen";
 import { AppText } from "@/components/ui/appText";
@@ -22,7 +23,11 @@ export default function Capsule() {
   if (!metadata) {
     return (
       <Screen>
-        <AppText>Invalid Metadata</AppText>
+        <View className="flex-1 items-center justify-center">
+          <AppText className="text-base text-gray-400">
+            Invalid Metadata
+          </AppText>
+        </View>
       </Screen>
     );
   }
@@ -66,22 +71,35 @@ export default function Capsule() {
 
   return (
     <Screen>
-      <View className="flex-row items-center">
-        <BackButton />
-        <AppText className="text-lg">Home</AppText>
+      <View className="flex-row items-center justify-between px-1">
+        <View className="flex-row items-center gap-2">
+          <BackButton />
+          <AppText className="text-lg font-semibold">Home</AppText>
+        </View>
         <CapsuleMenu onDelete={handleDeleteSelect} />
       </View>
 
-      <ScrollView className="mt-3 gap-2">
-        <AppText className="text-2xl">{metadata.title}</AppText>
-        <VidPreview uri={metadata.filepath ?? ""} />
-        {metadata.description && <AppText>{metadata.description}</AppText>}
+      <ScrollView
+        className="mt-4"
+        contentContainerClassName="gap-3 pb-4"
+        showsVerticalScrollIndicator={false}
+      >
+        <AppText className="px-1 text-2xl font-bold">{metadata.title}</AppText>
+
+        <View className="overflow-hidden rounded-2xl shadow-sm">
+          <VidPreview uri={metadata.filepath ?? ""} />
+        </View>
+
+        {metadata.description && (
+          <FutureNotes description={metadata.description} />
+        )}
       </ScrollView>
 
       <View className="mb-[5%] mt-auto">
         <WideButton
-          label="save to gallery"
+          label={isSaved ? "saved to gallery" : "save to gallery"}
           onClick={() => handleSaveVideoToGallery()}
+          icon={isSaved ? "checkmark-outline" : "download-outline"}
         />
       </View>
     </Screen>
