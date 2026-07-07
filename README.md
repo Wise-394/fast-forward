@@ -9,7 +9,7 @@
   <img src="https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
   <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" />
   <img src="https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white" />
- 
+ <img src="https://img.shields.io/badge/Expo-000020?style=for-the-badge&logo=expo&logoColor=white" />
 </p>
 
 ---
@@ -20,7 +20,6 @@
   <img width="220" src="https://github.com/user-attachments/assets/f4534882-48f7-4db3-8f98-c26233b0d590" />
   <img width="220" src="https://github.com/user-attachments/assets/8b169ee7-fc56-48f5-b07d-9ee23e140d26" />
   <img width="220" src="https://github.com/user-attachments/assets/8e4cb388-2d30-486e-bae2-21b026c08649" />
-  <img width="220" src="https://github.com/user-attachments/assets/61f5fc9d-c78a-4a27-93c2-66fb51456329" />
 </p>
 
 ---
