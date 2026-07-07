@@ -11,7 +11,7 @@ export default function Index() {
   const handleRedirectToRecord = () => router.navigate("/record");
   return (
     <Screen>
-      <AppText className="text-2xl font-bold">Flash Forward</AppText>
+      <AppText className="text-2xl font-bold">Fast Forward</AppText>
       <View className="mt-[15vh]">
         <AppText className="text-center text-text-secondary">
           Good Day, {username}

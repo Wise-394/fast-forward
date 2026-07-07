@@ -40,7 +40,7 @@ export function ConfirmationModal() {
               onPress={() => closeModal()}
               className="flex-1 rounded-xl bg-gray-200 py-3 active:opacity-70"
             >
-              <AppText className="text-center font-medium text-black">
+              <AppText className="text-center font-medium text-gray-950">
                 Cancel
               </AppText>
             </Pressable>

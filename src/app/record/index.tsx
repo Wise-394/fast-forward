@@ -20,7 +20,7 @@ export default function RecordingPage() {
     <CameraPermissionsGate>
       <SafeAreaView className="flex-1 bg-background">
         {/* HEADER */}
-        <View className="relative flex h-[8%] flex-row items-center justify-center">
+        <View className="relative flex h-[5%] flex-row items-center justify-center">
           <View className="absolute left-2">
             <BackButton />
           </View>
