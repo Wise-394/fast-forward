@@ -74,8 +74,8 @@ export default function SaveRecording() {
         <View className="absolute left-1">
           <BackButton />
         </View>
-        <AppText className="text-center text-2xl font-bold tracking-tight">
-          New Capsule
+        <AppText className="text-center text-lg font-bold tracking-tight">
+          New Video Message
         </AppText>
       </View>
 
@@ -135,7 +135,11 @@ export default function SaveRecording() {
       </ScrollView>
 
       <View className="pt-2">
-        <WideButton label="Send to future" onClick={() => handleSave()} />
+        <WideButton
+          label="Send to future"
+          onClick={() => handleSave()}
+          icon="send-outline"
+        />
       </View>
     </Screen>
   );

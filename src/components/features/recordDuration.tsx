@@ -25,8 +25,12 @@ export function RecordDuration() {
 
   return (
     <View className="flex-row items-center gap-1.5">
-      <View className="h-2.5 w-2.5 rounded-full bg-red-500" />
-      <AppText className="text-lg">{formatDuration(elapsed)}</AppText>
+      {isRecording && (
+        <>
+          <View className="h-2.5 w-2.5 rounded-full bg-red-500" />
+          <AppText className="text-lg">{formatDuration(elapsed)}</AppText>
+        </>
+      )}
     </View>
   );
 }
