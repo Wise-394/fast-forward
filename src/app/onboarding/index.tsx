@@ -12,7 +12,7 @@ export default function OnboardingScreen() {
 
   return (
     <Screen>
-      <AppText className="text-2xl font-bold">Flash Forward</AppText>
+      <AppText className="text-2xl font-bold">Fast Forward</AppText>
 
       <View className="flex-1 pt-[15vh]">
         <View className="mb-5 items-center p-5">
