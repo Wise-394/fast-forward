@@ -23,7 +23,7 @@ export default function Index() {
       <View className="mt-5 items-center p-5">
         <PlanetOrb />
       </View>
-      <View className="mt-auto">
+      <View className="mb-5 mt-auto">
         <WideButton
           label="Record"
           onClick={handleRedirectToRecord}

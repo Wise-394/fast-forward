@@ -112,7 +112,7 @@ export default function SaveRecording() {
             <AppMultiLine
               placeholder="Sample"
               multiline={true}
-              lines={10}
+              lines={7}
               value={inputFields.description}
               onchange={(text) =>
                 setInputFields((state) => ({ ...state, description: text }))
