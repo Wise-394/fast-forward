@@ -1,56 +1,45 @@
-# Welcome to your Expo app 👋
+# Fast Forward
+> Send a message to your future self, built with React Native + SQLite as a hobby project.
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+<p align="center">
+  <img width="800" alt="fastforward" src="https://github.com/user-attachments/assets/71449b91-de53-4b30-95bd-9da58e320677" />
+</p>
 
-## Get started
+<p align="center">
+  <img src="https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" />
+  <img src="https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white" />
+  <img src="https://img.shields.io/badge/Expo-000020?style=for-the-badge&logo=expo&logoColor=white" />
+</p>
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## Screenshots
 
-2. Start the app
+<p align="center">
+  <img width="220" src="https://github.com/user-attachments/assets/f4534882-48f7-4db3-8f98-c26233b0d590" />
+  <img width="220" src="https://github.com/user-attachments/assets/8b169ee7-fc56-48f5-b07d-9ee23e140d26" />
+  <img width="220" src="https://github.com/user-attachments/assets/8e4cb388-2d30-486e-bae2-21b026c08649" />
+  <img width="220" src="https://github.com/user-attachments/assets/61f5fc9d-c78a-4a27-93c2-66fb51456329" />
+</p>
 
-   ```bash
-   npx expo start
-   ```
+---
 
-In the output, you'll find options to open the app in a
+## Tech stack
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+<p align="center">
+  <img width="60" title="React Native" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" />
+  <img width="60" title="TypeScript" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" />
+  <img width="60" title="SQLite" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg" />
+  <img width="60" title="Expo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/expo/expo-original.svg" />
+</p>
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- **React Native (TypeScript)** — Cross-platform mobile app with type safety
+- **SQLite** — Local, on-device database for storing messages, video paths, and unlock dates
+- **Expo Camera** — Handles video recording and playback
+- **Local File Storage** — Video files stored on device, referenced via SQLite
 
-## Get a fresh project
+## About
+Fast Forward is a small time-capsule app built to explore what it feels like to write to your future self. Instead of a diary you read back immediately, every entry here is locked away until a date you choose — a birthday, a new year, a "check in with yourself" reminder six months from now.
 
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-### Other setup steps
-
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Under the hood, it's a hobby project meant to get real practice with the parts of mobile development that don't show up in tutorials: persisting structured data locally with SQLite, storing and retrieving video files from device storage, and building date-driven logic that decides what's visible and what stays hidden. Every time the app opens, it checks stored unlock dates against the current date and reveals anything whose time has come.
