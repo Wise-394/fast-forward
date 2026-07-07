@@ -43,7 +43,7 @@ function ResetUsernameCard() {
         <Ionicons name="person-remove-outline" size={18} color="#e05a5a" />
         <AppText className="font-bold">Reset Username</AppText>
       </View>
-      <AppText className="text-muted text-sm"></AppText>
+      <AppText className="text-sm text-text-muted"></AppText>
       <WideButton onClick={resetUsername} label="Reset My Username" />
     </View>
   );
@@ -60,7 +60,7 @@ function ResetPermissionCard() {
         <Ionicons name="settings-outline" size={18} color="#1a3a7a" />
         <AppText className="font-bold">Camera / Mic Permissions</AppText>
       </View>
-      <AppText className="text-muted mb-3 text-sm">
+      <AppText className="mb-3 text-sm text-text-muted">
         Permissions can't be reset from inside the app. Tap below to open
         Settings, then toggle Camera/Microphone off and back on.
       </AppText>
@@ -92,7 +92,7 @@ function ClearAllVideosCard() {
         <Ionicons name="trash-outline" size={18} color="#e05a5a" />
         <AppText className="font-bold">Clear All Videos</AppText>
       </View>
-      <AppText className="text-muted mb-3 text-sm">
+      <AppText className="mb-3 text-sm text-text-muted">
         Deletes all saved video files and their metadata.
       </AppText>
       <WideButton onClick={clearAllVideos} label="Delete All" />
